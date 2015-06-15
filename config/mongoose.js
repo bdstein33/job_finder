@@ -8,6 +8,7 @@ module.exports = function() {
 
   // Models
   require('../app/models/user.server.model');
+  require('../app/models/contact.server.model');
 
   return db;
 };

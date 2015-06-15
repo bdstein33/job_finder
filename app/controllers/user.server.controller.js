@@ -30,7 +30,6 @@ exports.signup = function(req, res) {
  
   username = req.body.username;
   password = req.body.password;
-
   
   return res.redirect('/');
 };
