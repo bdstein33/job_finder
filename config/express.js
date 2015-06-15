@@ -1,7 +1,9 @@
 var config = require('./config.js');
 var express = require('express');
 var bodyParser = require('body-parser');
+var morgan = require('morgan');
 var session = require('express-session');
+var exphbs = require('express-handlebars');
 
 
 
@@ -26,9 +28,19 @@ module.exports = function() {
 
   }));
 
+  // Assign handblebar to app
+  app.engine('.hbs', exphbs({layout: 'false', extname: '/hbs'})); 
+  // Tell app where to look for handelbar view templates 
+  app.set('views', './app/views');
+  // Tell express to use hbs template engine
+  app.set('view engine', '.hbs');
+
+  // Tell express to use public folder for static files
+  app.use(express.static('public')); 
 
 
 
+  require('../app/routes/index.server.routes.js')(app);
 
-
+  return app;
 };
