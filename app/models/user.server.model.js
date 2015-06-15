@@ -1,11 +1,12 @@
 var mongoose = require('mongoose');
 var Contact = require('mongoose').model('Contact');
 var crypto = require('crypto');
+var Schema = mongoose.Schema;
 
 
 
 
-var UserSchema = new mongoose.Schema({
+var UserSchema = new Schema({
   firstName: {type: String, required: true},
   lastName: {type: String, required: true},
   email: {
@@ -51,8 +52,8 @@ UserSchema.methods.hashPassword = function(password) {
 };
 
 // Check if user exists with given email address
-UserSchema.methods.authenticate = function(email, callback) {
-  this.findOne({email: email}, callback);
+UserSchema.methods.authenticate = function(password) {
+  return this.password === this.hashPassword(password);
 };
 
 UserSchema.set('toJSON', {

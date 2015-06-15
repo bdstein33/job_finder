@@ -1,7 +1,11 @@
-var fs = require('fs');
-var parse = require('csv-parse');
-var request = require('request');
-var cheerio = require('cheerio');
+var User = require('mongoose').model('User');
+var passport = require('passport');
+
+// var fs = require('fs');
+// var parse = require('csv-parse');
+// var request = require('request');
+// var cheerio = require('cheerio');
+
 
 
 exports.signinRender = function(req, res) {
@@ -26,7 +30,7 @@ exports.signin = function(req, res) {
 };
 
 
-exports.signup = function(req, res) {
+exports.signup = function(req, res, next) {
   // If user isn't logged in, create a new user object
   if (!req.user) {
     var user = new User({
@@ -41,23 +45,20 @@ exports.signup = function(req, res) {
         console.log("FAILED TO SIGN UP");
         return res.redirect('/signup');
       }
+
       req.login(user, function(err) {
         if (err) {
           return next(err);
         }
-        return res.redirect('/')
+        return res.redirect('/');
       });
     });
   } else {
     return res.redirect('/');
   }
-
-
-
-
-
-  username = req.body.username;
-  password = req.body.password;
-  
-  return res.redirect('/');
 };
+
+exports.signout = function(req, res) {
+  req.logout();
+  res.redirect('/');
+}

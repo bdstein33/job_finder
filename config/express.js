@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var session = require('express-session');
 var exphbs = require('express-handlebars');
+var passport = require('passport');
 
 
 
@@ -37,6 +38,9 @@ module.exports = function() {
 
   // Tell express to use public folder for static files
   app.use(express.static('public')); 
+
+  app.use(passport.initialize());
+  app.use(passport.session());
 
 
 
