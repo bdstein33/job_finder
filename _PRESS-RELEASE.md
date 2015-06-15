@@ -19,26 +19,44 @@ Once the project moves into development, the press release can be used as a touc
 ## Heading ##
   > Name the product in a way the reader (i.e. your target customers) will understand.
 
+  Job Search Helper
+
 ## Sub-Heading ##
   > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+
+  This product helps people looking for new jobs by showing them a curated list of open positions at companies they can be referred to.
 
 ## Summary ##
   > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
 
+  The product syncs with users' LinkedIn contacts and shows them a list of open jobs at companies where they know an employee.
+
 ## Problem ##
   > Describe the problem your product solves.
+
+  Finding a job is really difficult.
 
 ## Solution ##
   > Describe how your product elegantly solves the problem.
 
+  Being referred to a position from a current employee significantly increases the probability that you will get an interview.  My product makes it easier to find positions you want to be referred to.
+
 ## Quote from You ##
   > A quote from a spokesperson in your company.
+
+  Use your network to find jobs that you have a probability of getting a first round interview fow!
 
 ## How to Get Started ##
   > Describe how easy it is to get started.
 
+  Log in with LinkedIn and you're good to go!
+
 ## Customer Quote ##
   > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
 
+  This product helped me quickly find positions that I could be referred to.  I quickly landed multiple first round interviews!
+
 ## Closing and Call to Action ##
   > Wrap it up and give pointers where the reader should go next.
+
+  Next time you're looking for a job, make an account and see what your network can do for you.

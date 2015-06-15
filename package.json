@@ -1,0 +1,27 @@
+{
+  "name": "solo_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bdstein33/2015-05-solo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bdstein33/2015-05-solo/issues"
+  },
+  "homepage": "https://github.com/bdstein33/2015-05-solo#readme",
+  "dependencies": {
+    "body-parser": "^1.13.0",
+    "express": "^4.12.4",
+    "mongoose": "^4.0.5",
+    "morgan": "^1.6.0",
+    "passport": "^0.2.2"
+  }
+}
