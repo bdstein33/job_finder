@@ -27,7 +27,35 @@ exports.signin = function(req, res) {
 
 
 exports.signup = function(req, res) {
- 
+  // If user isn't logged in, create a new user object
+  if (!req.user) {
+    var user = new User({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      password: req.body.password
+    });
+    // Attempt to save new user object
+    user.save(function(err) {
+      if (err) {
+        console.log("FAILED TO SIGN UP");
+        return res.redirect('/signup');
+      }
+      req.login(user, function(err) {
+        if (err) {
+          return next(err);
+        }
+        return res.redirect('/')
+      });
+    });
+  } else {
+    return res.redirect('/');
+  }
+
+
+
+
+
   username = req.body.username;
   password = req.body.password;
   

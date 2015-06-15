@@ -1,8 +1,11 @@
 var mongoose = require('mongoose');
 var Contact = require('mongoose').model('Contact');
+var crypto = require('crypto');
 
 
-var UserSchema = new Schema({
+
+
+var UserSchema = new mongoose.Schema({
   firstName: {type: String, required: true},
   lastName: {type: String, required: true},
   email: {
@@ -23,8 +26,10 @@ var UserSchema = new Schema({
       'Password must be at least 7 characters'
     ]
   },
-  salt: {type: String},
-  
+  salt: {type: String}
   
 
 });
+
+
+mongoose.model('User', UserSchema);

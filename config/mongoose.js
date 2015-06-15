@@ -7,8 +7,8 @@ module.exports = function() {
   var db = mongoose.connect(config.db);
 
   // Models
-  require('../app/models/user.server.model');
   require('../app/models/contact.server.model');
+  require('../app/models/user.server.model');
 
   return db;
 };

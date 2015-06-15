@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var ContactSchema = new Schema({
+var ContactSchema = new mongoose.Schema({
   firstName: String,
   lastName: String,
   email: {
@@ -12,3 +12,5 @@ var ContactSchema = new Schema({
   title: String
   //ADD EXPERIENCES
 });
+
+mongoose.model('Contact', ContactSchema);
