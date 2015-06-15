@@ -41,6 +41,7 @@ module.exports = function() {
 
 
   require('../app/routes/index.server.routes')(app);
+  require('../app/routes/user.server.routes')(app);
 
   return app;
 };
