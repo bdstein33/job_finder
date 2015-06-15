@@ -1,6 +1,7 @@
 var config = require('./config.js');
 var express = require('express');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 
 
@@ -16,4 +17,18 @@ module.exports = function() {
   app.use(bodyParser.urlencoded({
     extended: true
   }));
+  app.use(bodyParser.json());
+
+  app.use(session({
+    saveUninitialized: true, // Forces an uninitialized (new but not modified) session to be saved to the store
+    resave: false, // Forces the session to be saved back to the session store
+    secret: config.sessionSecret // The secret used to sign the session ID cookie
+
+  }));
+
+
+
+
+
+
 };
