@@ -1,4 +1,4 @@
-angular.module('jobfinder.landing_page', [])
+angular.module('jobfinder.landing-page', [])
 
 .controller('LandingPageController', function ($scope, $window, $location, Auth) {
   // Redirect to home account page if logged in

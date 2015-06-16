@@ -8,8 +8,8 @@ angular.module('jobfinder.services', [])
       url: '/signin',
       data: user
     })
-    .then(function(resp) {
-      return resp.data
+    .then(function(res) {
+      return res.data
     });
   };
 
@@ -32,7 +32,6 @@ angular.module('jobfinder.services', [])
   }
 
   var loggedIn = function() {
-    console.log("Logged In: ", !!$window.localStorage.getItem('userId'));
     return !!$window.localStorage.getItem('userId');
   }
 
@@ -52,8 +51,25 @@ angular.module('jobfinder.services', [])
     loggedIn: loggedIn,
     redirectSignin: redirectSignin,
     redirectHome: redirectHome
-
   }
 
-
 })
+
+.factory('Upload', function($http) {
+  var uploadData = function(contacts) {
+    return $http({
+      method: 'POST',
+      url: '/upload',
+      headers: {'Content-Type': undefined },
+      data: contacts
+    })
+    .then(function(res) {
+      return res.data;
+    })
+  }
+
+  return {
+    uploadData: uploadData
+  }
+})
+

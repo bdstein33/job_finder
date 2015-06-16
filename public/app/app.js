@@ -1,9 +1,10 @@
 angular.module('jobfinder', [
   'jobfinder.services',
   'jobfinder.auth',
-  'jobfinder.landing_page',
+  'jobfinder.landing-page',
   'jobfinder.home',
   'jobfinder.top-nav',
+  'jobfinder.upload',
   'ngRoute',
   'ui.router'
 
@@ -87,6 +88,19 @@ angular.module('jobfinder', [
         'main': {
           templateUrl: 'app/home/home.html',
           controller: 'HomeController'
+        }
+      }
+    })
+    .state('/upload', {
+      url: '/upload',
+      views: {
+        'top-nav': {
+          templateUrl: 'app/top-nav/top-nav-logged-in.html',
+          controller: 'TopNavController'
+        },
+        'main': {
+          templateUrl: 'app/upload/upload.html',
+          controller: 'UploadController'
         }
       }
     })

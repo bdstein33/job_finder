@@ -4,5 +4,7 @@ angular.module('jobfinder.home', [])
   if (!Auth.loggedIn()) {
     Auth.redirectSignin();
   } 
+
+  $scope.username = $window.localStorage.getItem('userName');
   
 });

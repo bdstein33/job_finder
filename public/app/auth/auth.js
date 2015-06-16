@@ -18,12 +18,8 @@ angular.module('jobfinder.auth', [])
   };
 
   $scope.signup = function() {
-    console.log($scope.user);
-    console.log("AAAB");
     Auth.signup($scope.user)
     .then(function(resp) {
-      console.log(resp);
-      console.log("AAA");
       if (resp.hasOwnProperty('user')) {
         console.log(resp.user)
         $window.localStorage.setItem('userId', resp.user.id);
