@@ -93,36 +93,80 @@ var addContact = function(user, contactData) {
 
 exports.acceptData = function(req, res) {
   var data = req.body.data;
-  
+  var contactCount = 0
   User.findOne({_id: req.body['userId']}).exec( function(err, user) {
-    for (var i = 235; i < 236; i++) {
-      // Create a temp array that will be joined to contain the google search
-      // The first google search result will be the public LinkedIn profile that we want to scrape
-      var searchUrl = ["https://www.google.com/search?q=linkedin"];
-      searchUrl.push(data[i].firstName.split(" ").join("%20"));
-      searchUrl.push(data[i].lastName.split(" ").join("%20"));
-      var company = data[i].company.split(" ").join("%20");
+    // for (var i = 1; i < 100; i++) {
+    //   // Create a temp array that will be joined to contain the google search
+    //   // The first google search result will be the public LinkedIn profile that we want to scrape
+    //   var searchUrl = ["https://www.google.com/search?q=linkedin"];
+    //   searchUrl.push(data[i].firstName.split(" ").join("%20"));
+    //   searchUrl.push(data[i].lastName.split(" ").join("%20"));
+    //   var company = data[i].company.split(" ").join("%20");
 
-      // If the contact has a company, search by company and title
-      if (company) {
-        searchUrl.push(company);
-        searchUrl.push(data[i].jobTitle.split(" ").join("%20"));
-      } 
-      // If the contact doesn't have a company, search by email instead
-      else {
-        searchUrl.push(data[i].email.split(" ").join("%20"));
-      }
-      searchUrl = searchUrl.join("+");
-      scrapeGoogleSearch(searchUrl, user);
-    }
+    //   // If the contact has a company, search by company and title
+    //   if (company) {
+    //     searchUrl.push(company);
+    //     searchUrl.push(data[i].jobTitle.split(" ").join("%20"));
+    //   } 
+    //   // If the contact doesn't have a company, search by email instead
+    //   else {
+    //     searchUrl.push(data[i].email.split(" ").join("%20"));
+    //   }
+    //   searchUrl = searchUrl.join("+");
+
+    //   scrapeGoogleSearch(searchUrl, user);
+    // }
+
+    //Randomize the time between 0.5 and 3.5 seconds as a security protocol
+    (function loop() {
+      var rand = Math.round(Math.random() * (3000)) + 500;
+
+      setTimeout(function() {
+        if (contactCount < data.length) {
+          // Create a temp array that will be joined to contain the google search
+          // The first google search result will be the public LinkedIn profile that we want to scrape
+          var searchUrl = ["https://www.google.com/search?q=linkedin"];
+          searchUrl.push(data[contactCount].firstName.split(" ").join("%20"));
+          searchUrl.push(data[contactCount].lastName.split(" ").join("%20"));
+          var company = data[contactCount].company.split(" ").join("%20");
+
+          // If the contact has a company, search by company and title
+          if (company) {
+            searchUrl.push(company);
+            searchUrl.push(data[contactCount].jobTitle.split(" ").join("%20"));
+          } 
+          // If the contact doesn't have a company, search by email instead
+          else {
+            searchUrl.push(data[contactCount].email.split(" ").join("%20"));
+          }
+          
+          searchUrl = searchUrl.join("+");
+
+          scrapeGoogleSearch(searchUrl, user);
+
+
+          contactCount += 1;
+          loop();  
+        }
+      }, rand);
+    }());
 
   });
 
-
-
-  
   return res.send({success: true, message: 'Successful Upload'});
 };
+
+
+var downloadImage = function(url, filename, callback) {
+  request.head(url, function(err, res, body) {
+    var r = request(url).pipe(fs.createWriteStream(filename));
+    console.log('content-type:', res.headers['content-type']);
+    console.log('content-length:', res.headers['content-length']);
+    console.log(r);
+    r.on('close', callback);
+  });
+};
+
 
 
 // var parser = parse({delimiter: ','}, function(err, data) {

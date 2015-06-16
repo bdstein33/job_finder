@@ -9,7 +9,6 @@ angular.module('jobfinder.auth', [])
     Auth.signin($scope.user)
       .then(function(resp) {
         if (resp.hasOwnProperty('user')) {
-          console.log(resp.user)
           $window.localStorage.setItem('userId', resp.user.id);
           $window.localStorage.setItem('userName', resp.user.firstName + ' ' + resp.user.lastName);
           Auth.redirectHome();
@@ -21,7 +20,6 @@ angular.module('jobfinder.auth', [])
     Auth.signup($scope.user)
     .then(function(resp) {
       if (resp.hasOwnProperty('user')) {
-        console.log(resp.user)
         $window.localStorage.setItem('userId', resp.user.id);
         $window.localStorage.setItem('userName', resp.user.firstName + ' ' + resp.user.lastName);
         Auth.redirectHome();
