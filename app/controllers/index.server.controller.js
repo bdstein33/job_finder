@@ -5,7 +5,7 @@ exports.render = function(req, res) {
       name: req.user ? req.user.fullName : ''
     });
   } else {
-    res.render('app', {
+    res.render('/../../public/app.html', {
       title: req.user.fullName
     });
   }
