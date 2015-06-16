@@ -9,14 +9,27 @@ angular.module('jobfinder.auth', [])
     Auth.signin($scope.user)
       .then(function(resp) {
         if (resp.hasOwnProperty('user')) {
-          $window.localStorage.setItem('userId', resp.user);
+          console.log(resp.user)
+          $window.localStorage.setItem('userId', resp.user.id);
+          $window.localStorage.setItem('userName', resp.user.firstName + ' ' + resp.user.lastName);
           Auth.redirectHome();
         }
       });
   };
 
-  $scope.signout = function() {
-    console.log("A");
-
+  $scope.signup = function() {
+    console.log($scope.user);
+    console.log("AAAB");
+    Auth.signup($scope.user)
+    .then(function(resp) {
+      console.log(resp);
+      console.log("AAA");
+      if (resp.hasOwnProperty('user')) {
+        console.log(resp.user)
+        $window.localStorage.setItem('userId', resp.user.id);
+        $window.localStorage.setItem('userName', resp.user.firstName + ' ' + resp.user.lastName);
+        Auth.redirectHome();
+      } 
+    })
   }
 });

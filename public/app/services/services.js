@@ -14,16 +14,20 @@ angular.module('jobfinder.services', [])
   };
 
   var signup = function(user) {
+    console.log("SIGN UP ATTEMPTED")
     return $http({
       method: 'POST',
       url: '/signup',
       data: user
+    })
+    .then(function(resp) {
+      return resp.data
     });
   };
 
   var signout = function() {
-    console.log("Attempting sign out");
     $window.localStorage.removeItem('userId');
+    $window.localStorage.removeItem('userName');
     $location.path('/');
   }
 

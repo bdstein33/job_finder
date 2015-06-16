@@ -1,25 +1,25 @@
 <h1>Sign Up</h1>
 
-<form name="signinForm" ng-submit="signin()">
+<form name="signinForm" ng-submit="signup()">
   <div>
     <label>First Name: </label>
-    <input ng-model="firstName" type="text" name="firstName"/>
+    <input ng-model="user.firstName" type="text" name="firstName"/>
   </div>
   <div>
     <label>Last Name: </label>
-    <input ng-model="lastName" type="text" name="lastName"/>
+    <input ng-model="user.lastName" type="text" name="lastName"/>
   </div>
   <div>
     <label>Email: </label>
-    <input ng-model="email" type="text" name="email"/>
+    <input ng-model="user.email" type="text" name="email"/>
   </div>
   <div>
     <label>Password: </label>
-    <input ng-model="password" type="password" name="password" autocomplete="none"/>
+    <input ng-model="user.password" type="password" name="password" autocomplete="none"/>
   </div>
   <div>
     <label>Confirm Password: </label>
-    <input type="password" name="password" autocomplete="none"/>
+    <input type="password" name="password_check" autocomplete="none"/>
   </div>
   <div>
     <button>Sign Up</button>
