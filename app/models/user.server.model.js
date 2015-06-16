@@ -4,7 +4,14 @@ var crypto = require('crypto');
 var Schema = mongoose.Schema;
 
 
-
+var ContactSchema = new mongoose.Schema({
+  name: String,
+  // email: {
+  //   type: String,
+  //   match: [/.+\@.+\..+/, "Please enter a valid e-mail address"]
+  // },
+  experiences: Array
+});
 
 var UserSchema = new Schema({
   firstName: {type: String, required: true},
@@ -16,7 +23,7 @@ var UserSchema = new Schema({
     match: [/.+\@.+\..+/, "Please enter a valid e-mail address"]
 
   },
-  contacts: [Contact],
+  contacts: [ContactSchema],
   password: {
     type: String,
     required: true,

@@ -7,28 +7,29 @@ var cheerio = require('cheerio');
 
 
 
-var scrapeGoogleSearch = function(url) {
+var scrapeGoogleSearch = function(url, user) {
   request(url, function(error, response, html) {
     if (!error) {
       var $ = cheerio.load(html);
       $linkedinUrl = $('cite').first().text();
       console.log($linkedinUrl);
-      scrapeLinkedInProfile($linkedinUrl);
+      scrapeLinkedInProfile($linkedinUrl, user);
     } 
   });
 };
 
-var scrapeLinkedInProfile = function(url) {
+var scrapeLinkedInProfile = function(url, user) {
   request(url, function(error, response, html) {
     if (!error) {
       var titles = [];
       var companies = [];
       var dates = [];
+      var contactData = {};
 
       var $ = cheerio.load(html);
 
-      var name = $('.full-name').text();
-      var experiences = [];
+      contactData.name = $('.full-name').text();
+      contactData.experiences = [];
 
       var $dataContainer = $('#background-experience-container');
 
@@ -57,31 +58,44 @@ var scrapeLinkedInProfile = function(url) {
 
       // // Populate experience object
       for (var i = 0; i < titles.length; i++) {
-        experiences[i] = {
+        contactData.experiences[i] = {
           title: titles[i],
           company: companies[i],
           date: dates[i]
         };
       }
       
-      var contact = new Contact({
-        name: name,
-        experiences: experiences
-      });
-
-      console.log(contact);
+      addContact(user, contactData);     
     }
 
   });
 };
 
+var addContact = function(user, contactData) {
+  var currentContacts = user.contacts;
+  var exists = false;
+  for (var i = 0; i < currentContacts.length; i++) {
+    if (currentContacts[i].name === contactData.name && currentContacts[i].experiences[currentContacts[i].experiences.length-1] === currentContacts[i].experiences[currentContacts[i].experiences.length-1]) {
+      exists = true;
+      console.log("CONTACT ALREADY EXISTS");
+      continue;
+    }
+  }
+  if (!exists) {
+    user.contacts.push({name: contactData.name, experiences: contactData.experiences});
+      user.save(function(err) {
+      if (err) console.log(err);
+    });
+    console.log("SUCCESSFULLY ADDED NEW CONTACT");
+  }
+  
+};
+
 exports.acceptData = function(req, res) {
   var data = req.body.data;
   
-  User.findOne({id: req.body.userId}).exec( function(err, user) {
-    console.log(user);
-  
-    for (var i = 300; i < 301; i++) {
+  User.findOne({_id: req.body['userId']}).exec( function(err, user) {
+    for (var i = 235; i < 236; i++) {
       // Create a temp array that will be joined to contain the google search
       // The first google search result will be the public LinkedIn profile that we want to scrape
       var searchUrl = ["https://www.google.com/search?q=linkedin"];
@@ -99,7 +113,7 @@ exports.acceptData = function(req, res) {
         searchUrl.push(data[i].email.split(" ").join("%20"));
       }
       searchUrl = searchUrl.join("+");
-      scrapeGoogleSearch(searchUrl);
+      scrapeGoogleSearch(searchUrl, user);
     }
 
   });
