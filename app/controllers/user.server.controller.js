@@ -27,7 +27,7 @@ exports.signup = function(req, res, next) {
       if (err) return res.send({success: false, message: 'Internal error'});
 
       return res.send({success: true, message: 'Authentication succeeded', user: newUser});
-    })
+    });
   });
 };
 

@@ -3,18 +3,16 @@ angular.module('jobfinder.upload', [])
 .controller('UploadController', function ($scope, $window, $location, $http) {
   $scope.uploadFile = function() {
     var file = document.getElementById('file').files[0];
-    console.log(file);
     var r = new FileReader();
     r.onloadend = function(e) {
       var data = e.target.result;
-      // console.log(csvJSON(data));
       return $http({
-      method: 'POST',
-      url: '/upload',
-      // headers: {
-      //   'Content-Type': undefined
-      // },
-      data: csvJSON(data)
+        method: 'POST',
+        url: '/upload',
+        data: {
+          userId: $window.localStorage.userId,
+          data: csvJSON(data)
+        }
       })
       .then(function(resp) {
         return resp.data;
@@ -38,21 +36,16 @@ function csvJSON(csv){
   for(var i=1;i<lines.length-2;i++){
     var obj = {};
     var currentline=lines[i].split(",");
-
     
     obj.firstName = currentline[first_name_col];
     obj.lastName = currentline[last_name_col];
     obj.email = currentline[email_col];
     obj.company = currentline[company_col];
     obj.jobTitle = currentline[job_title_col];
-   
 
     result.push(obj);
-
   }
-  //return result; //JavaScript object
-  // console.log(lines);
-  return result; //JSON
+  return result;
 }
 
 

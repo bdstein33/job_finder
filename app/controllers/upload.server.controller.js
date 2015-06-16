@@ -1,8 +1,11 @@
 var fs = require('fs');
 var parse = require('csv-parse');
 var User = require('mongoose').model('User');
+var Contact = require('mongoose').model('Contact');
 var request = require('request');
 var cheerio = require('cheerio');
+
+
 
 var scrapeGoogleSearch = function(url) {
   request(url, function(error, response, html) {
@@ -18,18 +21,21 @@ var scrapeGoogleSearch = function(url) {
 var scrapeLinkedInProfile = function(url) {
   request(url, function(error, response, html) {
     if (!error) {
-      var experiences = [];
       var titles = [];
       var companies = [];
       var dates = [];
+
       var $ = cheerio.load(html);
+
+      var name = $('.full-name').text();
+      var experiences = [];
 
       var $dataContainer = $('#background-experience-container');
 
       // Find job titles
-      // $dataContainer.find('h4').each(function() {
-      //   titles.push($(this).text());
-      // });
+      $dataContainer.find('h4').each(function() {
+        titles.push($(this).text());
+      });
 
       // Find company name and company logo img
       var curObj = {};
@@ -57,41 +63,55 @@ var scrapeLinkedInProfile = function(url) {
           date: dates[i]
         };
       }
-      // console.log(experiences);
+      
+      var contact = new Contact({
+        name: name,
+        experiences: experiences
+      });
 
+      console.log(contact);
     }
+
   });
 };
 
 exports.acceptData = function(req, res) {
-  var data = req.body;
+  var data = req.body.data;
+  
+  User.findOne({id: req.body.userId}).exec( function(err, user) {
+    console.log(user);
+  
+    for (var i = 300; i < 301; i++) {
+      // Create a temp array that will be joined to contain the google search
+      // The first google search result will be the public LinkedIn profile that we want to scrape
+      var searchUrl = ["https://www.google.com/search?q=linkedin"];
+      searchUrl.push(data[i].firstName.split(" ").join("%20"));
+      searchUrl.push(data[i].lastName.split(" ").join("%20"));
+      var company = data[i].company.split(" ").join("%20");
 
-  for (var i = 10; i < 11; i++) {
-    // Create a temp array that will be joined to contain the google search
-    // The first google search result will be the public LinkedIn profile that we want to scrape
-    var searchUrl = ["https://www.google.com/search?q=linkedin"];
-    searchUrl.push(data[i].firstName.split(" ").join("%20"));
-    searchUrl.push(data[i].lastName.split(" ").join("%20"));
-    var company = data[i].company.split(" ").join("%20");
-
-    // If the contact has a company, search by company and title
-    if (company) {
-      searchUrl.push(company);
-      searchUrl.push(data[i].jobTitle.split(" ").join("%20"));
-    } 
-    // If the contact doesn't have a company, search by email instead
-    else {
-      searchUrl.push(data[i].email.split(" ").join("%20"))
+      // If the contact has a company, search by company and title
+      if (company) {
+        searchUrl.push(company);
+        searchUrl.push(data[i].jobTitle.split(" ").join("%20"));
+      } 
+      // If the contact doesn't have a company, search by email instead
+      else {
+        searchUrl.push(data[i].email.split(" ").join("%20"));
+      }
+      searchUrl = searchUrl.join("+");
+      scrapeGoogleSearch(searchUrl);
     }
-    searchUrl = searchUrl.join("+");
-    scrapeGoogleSearch(searchUrl);
-  }
+
+  });
 
 
 
+  
+  return res.send({success: true, message: 'Successful Upload'});
+};
 
 
-  // var parser = parse({delimiter: ','}, function(err, data) {
+// var parser = parse({delimiter: ','}, function(err, data) {
   //   console.log(data);
   //   var obj = {};
 
@@ -127,6 +147,3 @@ exports.acceptData = function(req, res) {
   //   console.log("A");
   //   fs.createReadStream(filename).pipe(parser);
   // });
-
-  return res.send({success: true, message: 'Successful Upload'});
-};

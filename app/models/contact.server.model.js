@@ -6,10 +6,7 @@ var ContactSchema = new mongoose.Schema({
     type: String,
     match: [/.+\@.+\..+/, "Please enter a valid e-mail address"]
   },
-  company: String,
-  companyUrl: String,
-  title: String
-  //ADD EXPERIENCES
+  experiences: Array
 });
 
 mongoose.model('Contact', ContactSchema);

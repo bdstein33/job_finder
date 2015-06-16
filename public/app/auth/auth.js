@@ -26,6 +26,6 @@ angular.module('jobfinder.auth', [])
         $window.localStorage.setItem('userName', resp.user.firstName + ' ' + resp.user.lastName);
         Auth.redirectHome();
       } 
-    })
-  }
+    });
+  };
 });
