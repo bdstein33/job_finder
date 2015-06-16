@@ -2,6 +2,8 @@ angular.module('jobfinder', [
   'jobfinder.services',
   'jobfinder.auth',
   'jobfinder.landing-page',
+  'jobfinder.contacts',
+  'jobfinder.jobs',
   'jobfinder.home',
   'jobfinder.top-nav',
   'jobfinder.upload',
@@ -101,6 +103,32 @@ angular.module('jobfinder', [
         'main': {
           templateUrl: 'app/upload/upload.html',
           controller: 'UploadController'
+        }
+      }
+    })
+    .state('/contacts', {
+      url: '/contacts',
+      views: {
+        'top-nav': {
+          templateUrl: 'app/top-nav/top-nav-logged-in.html',
+          controller: 'TopNavController'
+        },
+        'main': {
+          templateUrl: 'app/contacts/contacts.html',
+          controller: 'ContactsController'
+        }
+      }
+    })
+    .state('/jobs', {
+      url: '/jobs',
+      views: {
+        'top-nav': {
+          templateUrl: 'app/top-nav/top-nav-logged-in.html',
+          controller: 'TopNavController'
+        },
+        'main': {
+          templateUrl: 'app/jobs/jobs.html',
+          controller: 'JobsController'
         }
       }
     })

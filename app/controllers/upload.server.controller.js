@@ -77,34 +77,40 @@ var scrapeLinkedInProfile = function(url, user) {
 var addContact = function(user, contactData) {
   var currentContacts = user.contacts;
   var exists = false;
-  for (var i = 0; i < currentContacts.length; i++) {
-    if (currentContacts[i].name === contactData.name && currentContacts[i].experiences[currentContacts[i].experiences.length-1] === currentContacts[i].experiences[currentContacts[i].experiences.length-1]) {
-      exists = true;
-      console.log("CONTACT ALREADY EXISTS");
-      continue;
+  if (contactData.name !== "") {
+    for (var i = 0; i < currentContacts.length; i++) {
+      if (currentContacts[i].name === contactData.name && currentContacts[i].experiences[currentContacts[i].experiences.length-1] === currentContacts[i].experiences[currentContacts[i].experiences.length-1]) {
+        exists = true;
+        console.log("CONTACT ALREADY EXISTS");
+        continue;
+      }
     }
-  }
-  if (!exists) {
-    user.contacts.push({name: contactData.name, industry: contactData.industry, experiences: contactData.experiences});
-      user.save(function(err) {
-      if (err) console.log(err);
-    });
-    console.log("SUCCESSFULLY ADDED NEW CONTACT: ", contactData.name);
+    if (!exists) {
+      var contacts = user.contacts;
+      contacts.push({name: contactData.name, industry: contactData.industry, experiences: contactData.experiences});
+      User.findOneAndUpdate({email: user.email}, {contacts: contacts}, function(err, user) {
+        if (err) {console.log("ERROR UPDATING");}
+        else {
+          console.log("SUCCESSFULLY ADDED NEW CONTACT: ", contactData.name);
+        }
+
+      });
+    }
   }
   
 };
 
 exports.acceptData = function(req, res) {
   var data = req.body.data;
-  var contactCount = 1;
+  var contactCount = 187;
   User.findOne({_id: req.body['userId']}).exec( function(err, user) {
 
     //Randomize the timing of requests as a security protocol
     (function loop() {
-      var rand = Math.round(Math.random() * (5000)) + 2000;
+      var rand = Math.round(Math.random() * (15000)) + 2000;
 
       setTimeout(function() {
-        if (contactCount < 10) {
+        if (contactCount < data.length) {
           // Create a temp array that will be joined to contain the google search
           // The first google search result will be the public LinkedIn profile that we want to scrape
           var searchUrl = ["https://www.google.com/search?q=linkedin"];
@@ -126,7 +132,7 @@ exports.acceptData = function(req, res) {
 
           scrapeGoogleSearch(searchUrl, user);
 
-
+          console.log(contactCount);
           contactCount += 1;
           loop();  
         }

@@ -50,7 +50,8 @@ UserSchema.pre('save', function(next) {
     this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
 
     this.password = this.hashPassword(this.password);
-  }
+  } 
+
   next();
 });
 
@@ -61,8 +62,6 @@ UserSchema.methods.hashPassword = function(password) {
 
 // Check if user exists with given email address
 UserSchema.methods.authenticate = function(password) {
-  console.log(this.password);
-  console.log(this.hashPassword(password));
   return this.password === this.hashPassword(password);
 };
 

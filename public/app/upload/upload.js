@@ -15,7 +15,7 @@ angular.module('jobfinder.upload', [])
         }
       })
       .then(function(resp) {
-        return resp.data;
+        $location.path('home');
       });
     };
 

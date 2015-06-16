@@ -24,6 +24,7 @@
     "csv-parse": "^0.1.3",
     "express": "^4.12.4",
     "express-handlebars": "^2.0.1",
+    "indeed-api": "^1.0.0",
     "mongoose": "^4.0.5",
     "morgan": "^1.6.0",
     "passport": "^0.2.2",

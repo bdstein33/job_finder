@@ -31,6 +31,26 @@ exports.signup = function(req, res, next) {
   });
 };
 
+exports.getContacts = function(req, res, next, userid) {
+  console.log("A")
+  User.findOne({ '_id' : userid}, function(err, user) {
+    if (user) {
+      req.user = user;
+      next();
+    } else {
+      next(new Error('Invalid user id'));
+    }
+  });
+};
+
+exports.sendContacts = function(req, res, next) {
+  console.log("HERE");
+  var user = req.user;
+  console.log(user);
+  // contacts = user.contacts;
+  res.json(user.contacts);
+}
+
 // exports.signout = function(req, res) {
 //   req.logout();
 //   res.redirect('/');

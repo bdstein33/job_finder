@@ -21,5 +21,11 @@ module.exports = function(app) {
   app.route('/signup')
     .post(user.signup);
 
+
+  app.param('userid', user.getContacts);
+  app.get('/contacts/:userid', user.sendContacts);
+
+
+
   // app.get('/signout', user.signout);
 };

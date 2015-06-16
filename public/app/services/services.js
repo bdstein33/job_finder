@@ -9,7 +9,7 @@ angular.module('jobfinder.services', [])
       data: user
     })
     .then(function(res) {
-      return res.data
+      return res.data;
     });
   };
 
@@ -20,7 +20,7 @@ angular.module('jobfinder.services', [])
       data: user
     })
     .then(function(resp) {
-      return resp.data
+      return resp.data;
     });
   };
 
@@ -28,20 +28,20 @@ angular.module('jobfinder.services', [])
     $window.localStorage.removeItem('userId');
     $window.localStorage.removeItem('userName');
     $location.path('/');
-  }
+  };
 
   var loggedIn = function() {
     return !!$window.localStorage.getItem('userId');
-  }
+  };
 
   var redirectSignin = function() {
 
     $location.path('signin');
-  }
+  };
 
   var redirectHome = function() {
     $location.path('home');
-  }
+  };
 
   return {
     signin: signin,
@@ -50,7 +50,6 @@ angular.module('jobfinder.services', [])
     loggedIn: loggedIn,
     redirectSignin: redirectSignin,
     redirectHome: redirectHome
-  }
+  };
 
 })
-
