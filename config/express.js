@@ -30,9 +30,11 @@ module.exports = function() {
   }));
 
   // Assign handblebar to app
-  app.engine('.hbs', exphbs({layout: 'false', extname: '/hbs'})); 
+  partialsDir = "views/partials/";
+  app.engine('.hbs', exphbs({layout: 'main', extname: '/hbs'})); 
   // Tell app where to look for handelbar view templates 
   app.set('views', './app/views');
+  app.set('partialsDir', '/.app/views/partials');
   // Tell express to use hbs template engine
   app.set('view engine', '.hbs');
 
