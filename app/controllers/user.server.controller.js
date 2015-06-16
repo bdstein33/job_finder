@@ -8,26 +8,19 @@ var passport = require('passport');
 
 
 
-exports.signinRender = function(req, res) {
-  res.render('signin',  {
+// exports.signinRender = function(req, res) {
+//   // res.render('signin',  {
     
-  });
-};
+//   // });
+//   res.render();
+// };
 
-exports.signupRender = function(req, res) {
-  res.render('signup', {
+// exports.signupRender = function(req, res) {
+//   // res.render('signup', {
 
-  });
-};
-
-exports.signin = function(req, res) {
- 
-  username = req.body.username;
-  password = req.body.password;
-
-  
-  return res.redirect('/');
-};
+//   // });
+//   res.render();
+// };
 
 
 exports.signup = function(req, res, next) {

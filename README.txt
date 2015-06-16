@@ -1,6 +1,4 @@
-1. Log In
-2. Set up app view with Angular
-3. Upload file and scrape data
+-set up log in/ log out with Angular
 
 - save images in mongoose
 - use indeed API

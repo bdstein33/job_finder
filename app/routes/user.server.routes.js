@@ -3,16 +3,22 @@ var passport = require('passport');
 
 module.exports = function(app) {
 
-  app.route('/signin')
-    .get(user.signinRender)
-    .post(passport.authenticate('local', {
-      successRedirect: '/',
-      failureRedirect: '/signin',
-      failureFlash: true
-    }));
+ app.post('/signin', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) {
+      return next(err);
+    }
+
+    if (!user) {
+      return res.send({success: false, message: 'Authentication failed'});
+    }
+
+    return res.send({success: true, message: 'Authentication succeeded', user: user._id});
+  })(req, res, next);
+ });
+
 
   app.route('/signup')
-    .get(user.signupRender)
     .post(user.signup);
 
   app.get('/signout', user.signout);

@@ -1,0 +1,16 @@
+<h1>Sign In</h1>
+
+<form name="signinForm" ng-submit="signin()">
+  <div>
+    <label>Email: </label>
+    <input ng-model="user.email" type="text" name="email"/>
+  </div>
+  <div>
+    <label>Password: </label>
+    <input ng-model="user.password" type="password" name="password" autocomplete="none"/>
+  </div>
+  <div>
+    <button>Sign In</button>
+  </div>
+  <p>Don't have an account?  <a href="#/signup">Sign Up!</a></p>
+</form>
