@@ -22,6 +22,7 @@ var scrapeLinkedInProfile = function(url, user) {
   request(url, function(error, response, html) {
     if (!error) {
       var titles = [];
+      var industries = [];
       var companies = [];
       var dates = [];
       var contactData = {};
@@ -29,6 +30,7 @@ var scrapeLinkedInProfile = function(url, user) {
       var $ = cheerio.load(html);
 
       contactData.name = $('.full-name').text();
+      contactData.industry = $('.industry').text();
       contactData.experiences = [];
 
       var $dataContainer = $('#background-experience-container');
@@ -64,6 +66,7 @@ var scrapeLinkedInProfile = function(url, user) {
           date: dates[i]
         };
       }
+      console.log(contactData.name);
       
       addContact(user, contactData);     
     }
@@ -82,47 +85,26 @@ var addContact = function(user, contactData) {
     }
   }
   if (!exists) {
-    user.contacts.push({name: contactData.name, experiences: contactData.experiences});
+    user.contacts.push({name: contactData.name, industry: contactData.industry, experiences: contactData.experiences});
       user.save(function(err) {
       if (err) console.log(err);
     });
-    console.log("SUCCESSFULLY ADDED NEW CONTACT");
+    console.log("SUCCESSFULLY ADDED NEW CONTACT: ", contactData.name);
   }
   
 };
 
 exports.acceptData = function(req, res) {
   var data = req.body.data;
-  var contactCount = 0
+  var contactCount = 1;
   User.findOne({_id: req.body['userId']}).exec( function(err, user) {
-    // for (var i = 1; i < 100; i++) {
-    //   // Create a temp array that will be joined to contain the google search
-    //   // The first google search result will be the public LinkedIn profile that we want to scrape
-    //   var searchUrl = ["https://www.google.com/search?q=linkedin"];
-    //   searchUrl.push(data[i].firstName.split(" ").join("%20"));
-    //   searchUrl.push(data[i].lastName.split(" ").join("%20"));
-    //   var company = data[i].company.split(" ").join("%20");
 
-    //   // If the contact has a company, search by company and title
-    //   if (company) {
-    //     searchUrl.push(company);
-    //     searchUrl.push(data[i].jobTitle.split(" ").join("%20"));
-    //   } 
-    //   // If the contact doesn't have a company, search by email instead
-    //   else {
-    //     searchUrl.push(data[i].email.split(" ").join("%20"));
-    //   }
-    //   searchUrl = searchUrl.join("+");
-
-    //   scrapeGoogleSearch(searchUrl, user);
-    // }
-
-    //Randomize the time between 0.5 and 3.5 seconds as a security protocol
+    //Randomize the timing of requests as a security protocol
     (function loop() {
-      var rand = Math.round(Math.random() * (3000)) + 500;
+      var rand = Math.round(Math.random() * (5000)) + 2000;
 
       setTimeout(function() {
-        if (contactCount < data.length) {
+        if (contactCount < 10) {
           // Create a temp array that will be joined to contain the google search
           // The first google search result will be the public LinkedIn profile that we want to scrape
           var searchUrl = ["https://www.google.com/search?q=linkedin"];
@@ -139,7 +121,7 @@ exports.acceptData = function(req, res) {
           else {
             searchUrl.push(data[contactCount].email.split(" ").join("%20"));
           }
-          
+
           searchUrl = searchUrl.join("+");
 
           scrapeGoogleSearch(searchUrl, user);

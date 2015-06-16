@@ -6,6 +6,7 @@ var Schema = mongoose.Schema;
 
 var ContactSchema = new mongoose.Schema({
   name: String,
+  industry: String,
   // email: {
   //   type: String,
   //   match: [/.+\@.+\..+/, "Please enter a valid e-mail address"]
@@ -60,6 +61,8 @@ UserSchema.methods.hashPassword = function(password) {
 
 // Check if user exists with given email address
 UserSchema.methods.authenticate = function(password) {
+  console.log(this.password);
+  console.log(this.hashPassword(password));
   return this.password === this.hashPassword(password);
 };
 

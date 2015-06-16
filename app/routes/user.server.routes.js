@@ -12,7 +12,7 @@ module.exports = function(app) {
     if (!user) {
       return res.send({success: false, message: 'Authentication failed'});
     }
-
+    
     return res.send({success: true, message: 'Authentication succeeded', user: user});
   })(req, res, next);
  });
