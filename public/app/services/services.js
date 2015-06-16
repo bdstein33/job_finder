@@ -14,7 +14,6 @@ angular.module('jobfinder.services', [])
   };
 
   var signup = function(user) {
-    console.log("SIGN UP ATTEMPTED")
     return $http({
       method: 'POST',
       url: '/signup',
@@ -53,23 +52,5 @@ angular.module('jobfinder.services', [])
     redirectHome: redirectHome
   }
 
-})
-
-.factory('Upload', function($http) {
-  var uploadData = function(contacts) {
-    return $http({
-      method: 'POST',
-      url: '/upload',
-      headers: {'Content-Type': undefined },
-      data: contacts
-    })
-    .then(function(res) {
-      return res.data;
-    })
-  }
-
-  return {
-    uploadData: uploadData
-  }
 })
 

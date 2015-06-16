@@ -1,5 +1,10 @@
 <h1>Upload Data</h1>
-<form name="uploadForm" ng-submit="uploadContacts()" enctype="multipart/form-data">
-  <input ng-model="csvData" type="file" name="contacts"/>
+<!-- <form name="uploadForm" ng-submit="uploadFile()" enctype="multipart/form-data">
+  <input file-model="csvData" type="file" name="contacts"/>
   <input type="submit" />
+</form> -->
+<!-- <script src="js/ng-file-upload.js"></script> -->
+<form name="uploadform" ng-submit="uploadFile()" enctype="multipart/form-data">
+  <input type="file" id="file" name="contacts"/>
+  <button>Upload</button>
 </form>
