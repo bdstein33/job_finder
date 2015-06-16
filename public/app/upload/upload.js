@@ -6,7 +6,6 @@ angular.module('jobfinder.upload', [])
     console.log(file);
     var r = new FileReader();
     r.onloadend = function(e) {
-      console.log(e);
       var data = e.target.result;
       // console.log(csvJSON(data));
       return $http({
@@ -18,7 +17,7 @@ angular.module('jobfinder.upload', [])
       data: csvJSON(data)
       })
       .then(function(resp) {
-        return resp.data
+        return resp.data;
       });
     };
 

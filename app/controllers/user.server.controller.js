@@ -29,27 +29,9 @@ exports.signup = function(req, res, next) {
       return res.send({success: true, message: 'Authentication succeeded', user: newUser});
     })
   });
-  // if (!req.user) {
-  //   var user = new User({
-  //     firstName: req.body.firstName,
-  //     lastName: req.body.lastName,
-  //     email: req.body.email,
-  //     password: req.body.password
-  //   });
-  //   // Attempt to save new user object
-  //   user.save(function(err) {
-  //     if (err) {
-  //       console.log("FAILED TO SIGN UP");
-  //       return res.send({success: false, message: 'Internal Error'});
-  //     }
-  //   });
-  // } 
-  // else {
-  //   return res.send({success: true, message: 'Account creation successful', user: user});
-  // }
 };
 
-exports.signout = function(req, res) {
-  req.logout();
-  res.redirect('/');
-}
+// exports.signout = function(req, res) {
+//   req.logout();
+//   res.redirect('/');
+// }

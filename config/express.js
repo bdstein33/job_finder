@@ -20,8 +20,7 @@ module.exports = function() {
   app.use(bodyParser.urlencoded({
     extended: true
   }));
-  app.use(bodyParser.json());
-
+  app.use(bodyParser.json({limit: '50mb'}));
   app.use(session({
     saveUninitialized: true, // Forces an uninitialized (new but not modified) session to be saved to the store
     resave: false, // Forces the session to be saved back to the session store
@@ -44,10 +43,13 @@ module.exports = function() {
   app.use(passport.initialize());
   app.use(passport.session());
 
+  // app.use(express.bodyParser({limit: '50mb'}));
+
 
 
   require('../app/routes/index.server.routes')(app);
   require('../app/routes/user.server.routes')(app);
+  require('../app/routes/upload.server.routes')(app);
 
   return app;
 };

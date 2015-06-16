@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
 
 var ContactSchema = new mongoose.Schema({
-  firstName: String,
-  lastName: String,
+  name: String,
   email: {
     type: String,
     match: [/.+\@.+\..+/, "Please enter a valid e-mail address"]

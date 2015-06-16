@@ -21,5 +21,5 @@ module.exports = function(app) {
   app.route('/signup')
     .post(user.signup);
 
-  app.get('/signout', user.signout);
+  // app.get('/signout', user.signout);
 };
