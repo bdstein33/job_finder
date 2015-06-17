@@ -32,6 +32,20 @@ angular.module('jobfinder.jobs', [])
     });
   };
 
+  $scope.getJobs = function() {
+    for (var company in $scope.companies) {
+
+      return $http({
+        method: 'GET',
+        url: 'contacts/' + company
+      })
+      .then(function(res) {
+        $scope.companies[company] = res.result
+      })
+
+    }
+  }
+
 
   $scope.getContacts();
 
