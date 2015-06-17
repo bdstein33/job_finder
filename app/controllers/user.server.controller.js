@@ -1,11 +1,6 @@
 var User = require('mongoose').model('User');
 var passport = require('passport');
 
-// var fs = require('fs');
-// var parse = require('csv-parse');
-// var request = require('request');
-// var cheerio = require('cheerio');
-
 exports.signup = function(req, res, next) {
   // If user isn't logged in, create a new user object
 
@@ -32,7 +27,6 @@ exports.signup = function(req, res, next) {
 };
 
 exports.getContacts = function(req, res, next, userid) {
-  console.log("A")
   User.findOne({ '_id' : userid}, function(err, user) {
     if (user) {
       req.user = user;
@@ -44,9 +38,7 @@ exports.getContacts = function(req, res, next, userid) {
 };
 
 exports.sendContacts = function(req, res, next) {
-  console.log("HERE");
   var user = req.user;
-  console.log(user);
   // contacts = user.contacts;
   res.json(user.contacts);
 }

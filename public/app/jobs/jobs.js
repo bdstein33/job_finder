@@ -9,45 +9,45 @@ angular.module('jobfinder.jobs', [])
 
   $scope.companies = {};
  
+  $scope.jobs = []
 
-  $scope.getContacts = function() {
+  $scope.getCompanies = function() {
     return $http({
       method: 'GET',
       url: 'contacts/' + $window.localStorage.userId
     })
     .then(function(res) {
       $scope.contacts = res.data;
-      var name
+      
       for (var i = 0; i < $scope.contacts.length; i++) {
-        //This if statement needs to be REMOVED
-        if ($scope.contacts[i].name !== "") {
-          if ($scope.contacts[i].experiences.length > 0) {
-            name = $scope.contacts[i].experiences[0].company['name'];
-            $scope.companies[name] = true;
-          }
+        if ($scope.contacts[i].experiences.length > 0) {
+
+          var company = $scope.contacts[i].experiences[0].company['name'];
+          console.log("1", company);
+          $scope.companies[company] = [];
+          $http({
+            method: 'GET',
+            url: 'jobs/' + company
+          })
+          .then(function(res) {
+            if (!!res.data.result) {
+               res.data.result.forEach(function(job) {
+                console.log(job.company[0]);
+                if ( $scope.companies.hasOwnProperty(job.company[0])) {
+                   $scope.companies[job.company[0]].push(job);
+                 } else {
+                  $scope.companies[job.company[0]] = [job];
+                 }
+               
+              })
+            }
+           
+          })
         }
       }
-      $scope.companies = Object.keys($scope.companies);
-      
     });
   };
 
-  $scope.getJobs = function() {
-    for (var company in $scope.companies) {
-
-      return $http({
-        method: 'GET',
-        url: 'contacts/' + company
-      })
-      .then(function(res) {
-        $scope.companies[company] = res.result
-      })
-
-    }
-  }
-
-
-  $scope.getContacts();
-
+  $scope.getCompanies();
   
 });

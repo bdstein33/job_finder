@@ -1,5 +1,13 @@
-<h1>Jobs</h1>
+<link rel="stylesheet" type="text/css" href="css/jobs.css"></link>
+<div id="header">
+  <h1 id="header-text">Jobs</h1>
+</div>
 
-<div ng-repeat="company in companies">
-  <p>{{company}}</p>
+<input ng-model="search" id="job-search" type="text" placeholder="Search for jobs" />
+
+<div class="company-container" ng-repeat="company in companies">
+  <h2 class="company-name">{{company[0].company[0]}} </h2>
+  <div ng-repeat="job in company | filter: search | orderBy:'jobtitle[0]'">
+    <a href="{{job.url[0]}}" target="_blank"><p class="job-title">{{job.jobtitle[0]}}</p></a>
+  </div>
 </div>

@@ -1,13 +1,14 @@
 <link rel="stylesheet" type="text/css" href="css/contacts.css"></link>
-<h1>Contacts</h1>
+<div id="header">
+  <h1 id="header-text">Contacts</h1>
+</div>
 <div id="contacts">
 
-  <div class="contact" ng-repeat="contact in contacts">
-    <h3>{{contact.name}}</h3>
-    <h4>{{contact.industry}}</h4>
+  <div class="contact" ng-repeat="contact in contacts | orderBy:'name'">
+    <h3 class="contact-name">{{contact.name}}</h3>
+    <!-- <h4>{{contact.industry}}</h4> -->
     <div class="experience" ng-repeat="experience in contact.experiences">
-      <p class="hide" ng-class='{show:$first}' >{{experience.company.name}}</p>
-      <p class="hide"ng-class='{show:$first}'>{{experience.title}}</p>
+      <p class="hide" ng-class='{show:$first}' >{{experience.title}} at {{experience.company.name}}</p>
       <p class="hide" ng-class='{show:$first}'>{{experience.date}}</p>
     </div>  
   </div>

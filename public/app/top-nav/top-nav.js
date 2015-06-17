@@ -4,4 +4,5 @@ angular.module('jobfinder.top-nav', [])
   $scope.signout = function() {
     Auth.signout();
   }
+
 });

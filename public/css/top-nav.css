@@ -1,0 +1,24 @@
+#top-nav {
+  height: 50px;
+  width: 100%;
+  background-color: #2a2d33;
+}
+
+.nav-button{
+  height: 50px;
+  width: 90px;
+  font-size: 14px;
+  color: white;
+  line-height: 50px;
+  float: left;
+  text-align: center;
+}
+
+.right {
+  float: right;
+}
+
+.nav-button:hover{
+  background-color: #656c7d;
+  cursor: pointer;
+}

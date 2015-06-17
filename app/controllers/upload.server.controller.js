@@ -6,7 +6,6 @@ var request = require('request');
 var cheerio = require('cheerio');
 
 
-
 var scrapeGoogleSearch = function(url, user) {
   request(url, function(error, response, html) {
     if (!error) {
@@ -102,12 +101,12 @@ var addContact = function(user, contactData) {
 
 exports.acceptData = function(req, res) {
   var data = req.body.data;
-  var contactCount = 187;
+  var contactCount = 100;
   User.findOne({_id: req.body['userId']}).exec( function(err, user) {
 
     //Randomize the timing of requests as a security protocol
     (function loop() {
-      var rand = Math.round(Math.random() * (15000)) + 2000;
+      var rand = Math.round(Math.random() * (8000)) + 5000;
 
       setTimeout(function() {
         if (contactCount < data.length) {

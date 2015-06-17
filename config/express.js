@@ -50,6 +50,7 @@ module.exports = function() {
   require('../app/routes/index.server.routes')(app);
   require('../app/routes/user.server.routes')(app);
   require('../app/routes/upload.server.routes')(app);
+  require('../app/routes/job.server.routes')(app);
 
   return app;
 };

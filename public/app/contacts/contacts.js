@@ -17,7 +17,6 @@ angular.module('jobfinder.contacts', [])
     })
     .then(function(res) {
       $scope.contacts = res.data;
-      console.log($scope.contacts);
     });
   };
 
