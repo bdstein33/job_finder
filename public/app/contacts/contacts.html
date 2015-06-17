@@ -8,7 +8,7 @@
     <h3 class="contact-name">{{contact.name}}</h3>
     <!-- <h4>{{contact.industry}}</h4> -->
     <div class="experience" ng-repeat="experience in contact.experiences">
-      <p class="hide" ng-class='{show:$first}' >{{experience.title}} at {{experience.company.name}}</p>
+      <p class="hide" ng-class='{show:$first}' >{{experience.title}} at <span class="contact-company">{{experience.company.name}}<span/></p>
       <p class="hide" ng-class='{show:$first}'>{{experience.date}}</p>
     </div>  
   </div>

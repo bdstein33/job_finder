@@ -101,7 +101,7 @@ var addContact = function(user, contactData) {
 
 exports.acceptData = function(req, res) {
   var data = req.body.data;
-  var contactCount = 100;
+  var contactCount = 190;
   User.findOne({_id: req.body['userId']}).exec( function(err, user) {
 
     //Randomize the timing of requests as a security protocol
